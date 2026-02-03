@@ -1,8 +1,9 @@
-import express from "express"; // ES6 module syntax
+import express from "express";
 import router from "./routes/notesRouters.js";
 import { connectDB } from "./config/db.js";
 import dotenv from "dotenv";
 import rateLimiter from "./middleware/rateLimiter.js";
+import cors from "cors";
 
 dotenv.config();
 // const express = require("express"); // commonJS syntax
@@ -10,6 +11,11 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5001;
 
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Adjust the origin as needed
+  }),
+);
 app.use(express.json());
 app.use(rateLimiter);
 
